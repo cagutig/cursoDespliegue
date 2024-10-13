@@ -7,8 +7,6 @@ import numpy as np
 import pandas as pd
 import datetime as dt
 
-
-
 app = dash.Dash(
     __name__,
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
@@ -21,8 +19,16 @@ app.config.suppress_callback_exceptions = True
 
 # Load data from csv
 def load_data():
-    # To do: Completar la función 
-    
+    # Cargar el archivo CSV como un DataFrame
+    df = pd.read_csv('datos_energia.csv')
+
+    # Asegurarse de que la columna de fechas está en el formato datetime
+    df['time'] = pd.to_datetime(df['time'])
+
+    # Establecer la columna de fecha como el índice
+    df.set_index('time', inplace=True)
+
+    return df  
 
 # Cargar datos
 data = load_data()
